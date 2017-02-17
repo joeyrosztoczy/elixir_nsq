@@ -16,6 +16,8 @@ defmodule NSQ.Lookupd do
 
   @spec nsqds_with_topic([C.host_with_port], String.t) :: [C.host_with_port]
   def nsqds_with_topic(lookupds, topic) do
+    IO.inspect lookupds
+    IO.inspect topic
     responses = Enum.map(lookupds, &topics_from_lookupd(&1, topic))
     nsqds = Enum.map responses, fn(response) ->
       Enum.map response["producers"] || [], fn(producer) ->
