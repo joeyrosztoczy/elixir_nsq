@@ -3,3 +3,6 @@
 /deps
 erl_crash.dump
 *.ez
+test/data_paths/512
+test/data_paths/513
+test/data_paths/514
