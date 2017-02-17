@@ -16,8 +16,8 @@ defmodule NSQ.Lookupd do
 
   @spec nsqds_with_topic([C.host_with_port], String.t) :: [C.host_with_port]
   def nsqds_with_topic(lookupds, topic) do
-    Logger.debug "#{inspect lookupds}"
-    Logger.debug "#{inspect topic}"
+    Logger.info "#{inspect lookupds}"
+    Logger.info "#{inspect topic}"
     responses = Enum.map(lookupds, &topics_from_lookupd(&1, topic))
     nsqds = Enum.map responses, fn(response) ->
       Enum.map response["producers"] || [], fn(producer) ->
@@ -42,8 +42,8 @@ defmodule NSQ.Lookupd do
     try do
       case HTTPotion.get(lookupd_url, headers: headers) do
         %HTTPotion.Response{status_code: 200, body: body, headers: headers} ->
-              Logger.debug "#{inspect body}"
-              Logger.debug "#{inspect headers}"
+              Logger.info "#{inspect body}"
+              Logger.info "#{inspect headers}"
           normalize_200_response(headers, body)
         %HTTPotion.Response{status_code: 404} ->
           %{} |> normalize_response
